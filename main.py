@@ -4,6 +4,7 @@
 import sys
 from parser import parse
 from serializer import serialize
+from schedule import schedule
 
 if len(sys.argv) < 2:
     sys.exit("did you forget sth.?")
@@ -16,6 +17,5 @@ state = parse(inFileName)
 
 print(state.warehouses[0])
 print(state.orders[0])
-commands = []
-commands.append([0, "L", 0, 0, 1])
+commands = schedule(state)
 serialize(outFileName, commands)
