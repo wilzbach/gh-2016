@@ -2,6 +2,7 @@
 
 from utils import dist_ceil
 
+
 class Drone:
 
     def __init__(self, pos=None, max_payload=-1, id=None):
@@ -19,7 +20,7 @@ class Drone:
         return not self.in_progress
 
     def process(self, turn, offer):
-        self.in_progress = offer       
+        self.in_progress = offer
 
         product = offer["product"]
         count = offer["count"]
@@ -27,7 +28,7 @@ class Drone:
 
         cmd = load(self.id, warehouse.id, product, count)
 
-        duration = dist_ceil(self.pos, warehouse.pos))+1
+        duration = dist_ceil(self.pos, warehouse.pos)+1
         self.busy_time = turn+duration # -1 müsste minus eins sein aber so gehen wir sicher
         self.in_progress = offer
         warehouse.take_product(product, count)
@@ -36,7 +37,7 @@ class Drone:
 
         return cmd
 
-    def new_instructions(self, self):
+    def new_instructions(self, turn):
         if self.in_progress is None:
             return None
 
@@ -44,8 +45,8 @@ class Drone:
         count = self.in_progress["count"]
 
         cmd = deliver(self.id, self.in_progress["order"].id, product, count)
-        
-        duration = dist_ceil(self.pos, order.pos))+1
+
+        duration = dist_ceil(self.pos, order.pos)+1
         self.busy_time = turn+duration # -1 müsste minus eins sein aber so gehen wir sicher
         self.in_progress = None
         order.complete(product, count)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from utils import dist
+from utils import dist_ceil
 
 
 class State:
@@ -21,7 +21,7 @@ class State:
     def closest_warehouse(self, drone, offer):
         potential_warehouses = (w for w in self.warehouses if w.has_product([offer["product"]], offer["count"]))
         assert len(potential_warehouses) > 0
-        return min(self.warehouses, key=lambda w: dist(w.pos, drone.pos))
+        return min(self.warehouses, key=lambda w: dist_ceil(w.pos, drone.pos))
 
     def next_offer(self):
         """ looks at all drones and gives the nearest offer """
@@ -30,9 +30,9 @@ class State:
         current_dist = None
         for order in self.orders:
             if order.has_unreserved_items():
-                if next_order is None or self.dist(next_drone, order) < current_dist:
+                if next_order is None or self.dist_ceil(next_drone, order) < current_dist:
                     next_order = order
-                    current_dist = self.dist(next_drone.pos, order.pos)
+                    current_dist = self.dist_ceil(next_drone.pos, order.pos)
 
         item, count = order.best_unreserved_item()
         count = min(int(self.max_payload / self.products[item]), count)
