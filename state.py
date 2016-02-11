@@ -35,3 +35,15 @@ class State:
         potential_warehouses = (w for w in self.warehouses if w.has_product([offer["product"]], offer["count"]))
         assert len(potential_warehouses) > 0
         return min(self.warehouses, key=lambda w: self.dist(w.pos, drone.pos))
+
+    def next_order(self):
+        """ looks at all drones and gives the nearest offer """
+        next_drone = self.next_free_drone()
+        next_order = None
+        current_dist = None
+        for order in self.orders:
+            if order.is_available():
+                if next_order is None or self.dist(next_drone, order) < current_dist:
+                    next_order = order
+                    current_dist = self.dist(next_drone.pos, order.pos)
+        return next_order
