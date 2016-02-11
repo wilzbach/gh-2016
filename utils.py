@@ -5,7 +5,8 @@ import math
 cache = {}
 def dist_ceil(pos1, pos2):
     """ computes the distance between everything """
-    if (pos1, pos2) is cache:
+    k = (pos1, pos2)
+    if k in cache:
         return cache[(pos1, pos2)]
     poss = [pos1, pos2]
     for i, pos in enumerate(poss):
