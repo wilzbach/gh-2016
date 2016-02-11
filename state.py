@@ -42,8 +42,11 @@ class State:
         next_order = None
         current_dist = None
         for order in self.orders:
-            if order.is_available():
+            if order.has_unreserved_items():
                 if next_order is None or self.dist(next_drone, order) < current_dist:
                     next_order = order
                     current_dist = self.dist(next_drone.pos, order.pos)
         return next_order
+
+    def process_order(self, drone, order):
+        return []
