@@ -28,6 +28,7 @@ class State:
                         current_dist = dist_ceil(w.pos, drone.pos)
 
         assert potential_warehouse is not None
+        return potential_warehouse
 
     def next_offer(self):
         """ looks at all drones and gives the nearest offer """
