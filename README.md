@@ -9,3 +9,9 @@ state format:
 	"warehouses": warehouses,
 	"orders": orders
 }"
+offer:
+"{
+	"order": order to be worked
+	"product": product to be delivered
+	"count": count of items
+}"
