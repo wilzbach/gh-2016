@@ -2,7 +2,7 @@ from scipy.spatial import distance
 import math
 
 
-def dist(self, pos1, pos2):
+def dist_ceil(self, pos1, pos2):
     """ computes the distance between everything """
     poss = [pos1, pos2]
     for i, pos in enumerate(poss):
