@@ -19,7 +19,7 @@ class Order:
     def is_done(self):
         return sum(self.items.values()) == 0
 
-    def is_available(self):
+    def has_unreserved_items(self):
         return sum(self.items.values()) != sum(self.in_progress.values())
 
     def process(self, id, count=1):
