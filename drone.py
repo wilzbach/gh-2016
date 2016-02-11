@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 from utils import dist_ceil
+from orders import load, unload, deliver, wait
 
 
 class Drone:
@@ -28,11 +29,12 @@ class Drone:
 
         cmd = load(self.id, warehouse.id, product, count)
 
-        duration = dist_ceil(self.pos, warehouse.pos)+1
-        self.busy_time = turn+duration # -1 müsste minus eins sein aber so gehen wir sicher
+        duration = dist_ceil(self.pos, warehouse.pos) + 1
+        # -1 müsste minus eins sein aber so gehen wir sicher
+        self.busy_time = turn + duration
         self.in_progress = offer
         warehouse.take_product(product, count)
-        order.process(product, count)
+        offer["order"].process(product, count)
         self.pos = warehouse.pos
 
         return cmd
@@ -43,11 +45,13 @@ class Drone:
 
         product = self.in_progress["product"]
         count = self.in_progress["count"]
+        order = self.in_progress["order"]
 
         cmd = deliver(self.id, self.in_progress["order"].id, product, count)
 
-        duration = dist_ceil(self.pos, order.pos)+1
-        self.busy_time = turn+duration # -1 müsste minus eins sein aber so gehen wir sicher
+        duration = dist_ceil(self.pos, order.pos) + 1
+        # -1 müsste minus eins sein aber so gehen wir sicher
+        self.busy_time = turn + duration
         self.in_progress = None
         order.complete(product, count)
         self.pos = order.pos

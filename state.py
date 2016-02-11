@@ -14,14 +14,14 @@ class State:
         """ returns the next free drone """
         next_drone = self.drones[0]
         for drone in self.drones:
-            if drone.next_busy < next_drone.next_busy:
+            if drone.busy_time < next_drone.busy_time:
                 next_drone = drone
         return next_drone
 
     def closest_warehouse(self, drone, offer):
-        potential_warehouses = (w for w in self.warehouses if w.has_product([offer["product"]], offer["count"]))
+        potential_warehouses = [w for w in self.warehouses if w.has_product(offer["product"], offer["count"])]
         assert len(potential_warehouses) > 0
-        return min(self.warehouses, key=lambda w: dist_ceil(w.pos, drone.pos))
+        return min(potential_warehouses, key=lambda w: dist_ceil(w.pos, drone.pos))
 
     def next_offer(self):
         """ looks at all drones and gives the nearest offer """
@@ -30,11 +30,11 @@ class State:
         current_dist = None
         for order in self.orders:
             if order.has_unreserved_items():
-                if next_order is None or self.dist_ceil(next_drone, order) < current_dist:
+                if next_order is None or dist_ceil(next_drone, order) < current_dist:
                     next_order = order
-                    current_dist = self.dist_ceil(next_drone.pos, order.pos)
+                    current_dist = dist_ceil(next_drone.pos, order.pos)
 
-        item, count = order.best_unreserved_item()
+        item, count = order.best_unreserved_item(self.max_payload)
         count = min(int(self.max_payload / self.products[item]), count)
         offer = {"product": item, "order": order, "count": count}
         return offer
