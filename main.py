@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import sys
+from parser import parse
 
 if len(sys.argv) < 2:
     sys.exit("did you forget sth.?")

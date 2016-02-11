@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import sys
 
 def parse(inFileName):
 
@@ -30,6 +31,7 @@ def parse(inFileName):
         orders = []
         lines = inFile.readlines()
         for pos, nr_items, items in zip(lines[::3], lines[1::3], lines[2::3]):
+            pos = list(map(int, pos.split(" ")))
             items = list(map(int, items.strip().split(" ")))
             assert int(nr_items) == len(items)
             orders.append({"pos": pos, "items": items})
