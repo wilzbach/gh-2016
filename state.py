@@ -36,7 +36,7 @@ class State:
         assert len(potential_warehouses) > 0
         return min(self.warehouses, key=lambda w: self.dist(w.pos, drone.pos))
 
-    def next_order(self):
+    def next_offer(self):
         """ looks at all drones and gives the nearest offer """
         next_drone = self.next_free_drone()
         next_order = None
@@ -46,7 +46,8 @@ class State:
                 if next_order is None or self.dist(next_drone, order) < current_dist:
                     next_order = order
                     current_dist = self.dist(next_drone.pos, order.pos)
-        return next_order
 
-    def process_order(self, drone, order):
-        return []
+        item, count = order.best_unreserved_item()
+        count = min(int(self.max_payload / self.products[item]), count)
+        offer = {"product": item, "order": order, "count": count}
+        return offer
