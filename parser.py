@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 from drone import Drone
+from state import State
 
 
 def parse(inFileName):
@@ -39,19 +40,20 @@ def parse(inFileName):
 
         assert len(orders) == nr_orders
 
+        # init drones to simulate
         drones = []
         first_warehouse = warehouses[0]
         for i in range(nr_drones):
             drone = Drone(pos=first_warehouse["pos"], id=i, products=products, max_payload=max_payload)
             drones.append(drone)
 
-        return {
-            "rows": rows,
-            "columns": columns,
-            "nr_turns": nr_turns,
-            "max_payload": max_payload,
-            "products": products,
-            "warehouses": warehouses,
-            "orders": orders,
-            "drones": drones
-        }
+        return State(
+            rows = rows,
+            columns = columns,
+            nr_turns = nr_turns,
+            max_payload = max_payload,
+            products = products,
+            warehouses = warehouses,
+            orders = orders,
+            drones = drones
+        )

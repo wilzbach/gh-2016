@@ -13,13 +13,13 @@ inFileName = sys.argv[1]
 outFileName = sys.argv[2]
 
 
-g = parse(inFileName)
+state = parse(inFileName)
 
 # compute distances between orders and warehourses (available as "distances")
-dist(g)
+dist(state)
 
-print(g["warehouses"][0])
-print(g["orders"][0])
+print(state.warehouses[0])
+print(state.orders[0])
 commands = []
 commands.append([0, "L", 0, 0, 1])
 serialize(outFileName, commands)

@@ -7,9 +7,9 @@ import math
 
 def dist(g):
     """ adds a distance array for every warehouse with the distances to all orders """
-    for w in g["warehouses"]:
+    for w in g.warehouses:
         w["distances"] = []
-        for o in g["orders"]:
+        for o in g.orders:
             d = distance.euclidean(w["pos"], o["pos"])
             d = math.ceil(d)
             w["distances"].append(d)
