@@ -4,6 +4,7 @@
 import sys
 from parser import parse
 from serializer import serialize
+from distance import dist
 
 if len(sys.argv) < 2:
     sys.exit("did you forget sth.?")
@@ -13,6 +14,8 @@ outFileName = sys.argv[2]
 
 
 g = parse(inFileName)
+
+dist(g)
 
 print(g["warehouses"][0])
 print(g["orders"][0])
