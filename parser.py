@@ -23,9 +23,9 @@ def parse(inFileName):
         warehouses = []
         for i in range(nr_warehouses):
             pos = list(map(int, inFile.readline().strip().split(" ")))
-            product_types = list(map(int, inFile.readline().strip().split(" ")))
-            assert len(product_types) == nr_products
-            warehouses.append({"id": i, "pos": pos, "items": product_types})
+            items = list(map(int, inFile.readline().strip().split(" ")))
+            assert len(items) == nr_products
+            warehouses.append(Warehouse(i, pos, items))
 
         assert len(warehouses) == nr_warehouses
 
@@ -45,7 +45,7 @@ def parse(inFileName):
         drones = []
         first_warehouse = warehouses[0]
         for i in range(nr_drones):
-            drone = Drone(pos=first_warehouse["pos"], id=i, products=products, max_payload=max_payload)
+            drone = Drone(pos=first_warehouse.pos, id=i, products=products, max_payload=max_payload)
             drones.append(drone)
 
         return State(

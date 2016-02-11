@@ -23,16 +23,15 @@ class State:
         """ computes the distance between everything """
         poss = [pos1, pos2]
         for i, pos in enumerate(poss):
-            if "pos" in pos:
-                pos[i] = pos["pos"]
-            elif hasattr(pos, "pos"):
+            # if "pos" in pos:
+                # pos[i] = pos["pos"]
+            if hasattr(pos, "pos"):
                 pos[i] = pos.pos
         d = distance.euclidean(*poss)
         d = math.ceil(d)
         return d
 
-        
     def closest_warehouse(self, drone, offer):
-        potential_warehouses = [w for w in self.warehouses if w.has_product([offer["product"]], offer["count"])]
-        assert(len(potential_warehouses) > 0)
-        return minimum(warehouses, key=lambda w: self.dist(w.pos, drone.pos))
+        potential_warehouses = (w for w in self.warehouses if w.has_product([offer["product"]], offer["count"]))
+        assert len(potential_warehouses) > 0
+        return min(self.warehouses, key=lambda w: self.dist(w.pos, drone.pos))
