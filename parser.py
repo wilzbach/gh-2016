@@ -21,7 +21,7 @@ def parse(inFileName):
             pos = list(map(int, inFile.readline().strip().split(" ")))
             product_types = list(map(int, inFile.readline().strip().split(" ")))
             assert len(product_types) == nr_products
-            warehouses.append({"pos": pos, "items": product_types})
+            warehouses.append({"id": i, "pos": pos, "items": product_types})
 
         assert len(warehouses) == nr_warehouses
 
@@ -29,11 +29,11 @@ def parse(inFileName):
         nr_orders = int(inFile.readline())
         orders = []
         lines = inFile.readlines()
-        for pos, nr_items, items in zip(lines[::3], lines[1::3], lines[2::3]):
+        for i, (pos, nr_items, items) in enumerate(zip(lines[::3], lines[1::3], lines[2::3])):
             pos = list(map(int, pos.split(" ")))
             items = list(map(int, items.strip().split(" ")))
             assert int(nr_items) == len(items)
-            orders.append({"pos": pos, "items": items})
+            orders.append({"id": i, "pos": pos, "items": items})
 
         assert len(orders) == nr_orders
 
