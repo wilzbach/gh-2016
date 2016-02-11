@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+
 class Warehouse:
 
     def __init__(self, id, pos, items):
@@ -7,9 +8,9 @@ class Warehouse:
         self.pos = pos
         self.items = items
 
-    def has_product(product_id, count):
+    def has_product(self, product_id, count):
         return self.items[product_id] >= count
 
-    def take_product(product_id, count):
+    def take_product(self, product_id, count):
         assert(self.items[product_id] >= count)
         self.items[product_id] -= count
