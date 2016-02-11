@@ -14,8 +14,6 @@ outFileName = sys.argv[2]
 
 state = parse(inFileName)
 
-# compute distances between orders and warehourses (available as "distances")
-
 print(state.warehouses[0])
 print(state.orders[0])
 commands = []

@@ -30,3 +30,9 @@ class State:
         d = distance.euclidean(*poss)
         d = math.ceil(d)
         return d
+
+        
+    def closest_warehouse(self, drone, offer):
+        potential_warehouses = [w for w in self.warehouses if w.has_product([offer["product"]], offer["count"])]
+        assert(len(potential_warehouses) > 0)
+        return minimum(warehouses, key=lambda w: self.dist(w.pos, drone.pos))
