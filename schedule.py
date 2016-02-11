@@ -1,12 +1,12 @@
 from orders import load, unload, deliver, wait
 
+
 def schedule(state):
     commands = []
     for turn in range(state.nr_turns):
         for drone in state.drones:
-            command = drone.new_instructions(turn)
-            if command is not None:
-                commands.append(command)
+            if drone.has_new_instructions(turn):
+                commands.append(drone.new_instructions(turn))
             elif not drone.busy(turn):
                 # select product to deliver
                 offer = state.next_offer()
