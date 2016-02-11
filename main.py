@@ -13,7 +13,7 @@ outFileName = sys.argv[2]
 
 g = parse(inFileName)
 
-print(g)
+print(g["warehouses"][0])
 
 # do stuff
 #

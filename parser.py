@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import sys
 
 def parse(inFileName):
 
@@ -22,7 +21,7 @@ def parse(inFileName):
             pos = list(map(int, inFile.readline().strip().split(" ")))
             product_types = list(map(int, inFile.readline().strip().split(" ")))
             assert len(product_types) == nr_products
-            warehouses.append({"pos": pos, "type": product_types})
+            warehouses.append({"pos": pos, "items": product_types})
 
         assert len(warehouses) == nr_warehouses
 
