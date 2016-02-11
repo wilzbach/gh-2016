@@ -3,7 +3,7 @@ from orders import load, unload, deliver, wait
 def schedule(state):
     commands = []
     for turn in range(nr_turns):
-        for drone in (drone for drone in state["drones"] if not drone.busy(turn)):
+        for drone in (drone for drone in state.drones if not drone.busy(turn)):
             # select product to deliver
             offer = choose_product_naive(state)
 

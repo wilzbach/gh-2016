@@ -45,7 +45,7 @@ def parse(inFileName):
         drones = []
         first_warehouse = warehouses[0]
         for i in range(nr_drones):
-            drone = Drone(pos=first_warehouse["pos"], id=i, products=products, max_payload=max_payload)
+            drone = Drone(pos=first_warehouse.pos, id=i, products=products, max_payload=max_payload)
             drones.append(drone)
 
         return State(
