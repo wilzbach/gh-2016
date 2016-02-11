@@ -9,7 +9,7 @@ class Order:
         self.items = {}
         self.in_progress = {}
         for item in items:
-            if item not in items:
+            if item not in self.items:
                 self.items[item] = 0
                 self.in_progress[item] = 0
             self.items[item] += 1
