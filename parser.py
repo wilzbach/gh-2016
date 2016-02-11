@@ -23,7 +23,7 @@ def parse(inFileName):
         nr_warehouses = int(inFile.readline())
         warehouses = []
         for i in range(nr_warehouses):
-            pos = list(map(int, inFile.readline().strip().split(" ")))
+            pos = tuple(map(int, inFile.readline().strip().split(" ")))
             items = list(map(int, inFile.readline().strip().split(" ")))
             assert len(items) == nr_products
             warehouses.append(Warehouse(i, pos, items))
@@ -35,7 +35,7 @@ def parse(inFileName):
         orders = []
         lines = inFile.readlines()
         for i, (pos, nr_items, items) in enumerate(zip(lines[::3], lines[1::3], lines[2::3])):
-            pos = list(map(int, pos.split(" ")))
+            pos = tuple(map(int, pos.split(" ")))
             items = list(map(int, items.strip().split(" ")))
             assert int(nr_items) == len(items)
             orders.append(Order(id=i, pos=pos, items=items))
