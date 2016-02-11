@@ -33,3 +33,7 @@ class Order:
         self.in_progress[id] -= count
         assert self.items[id] >= 0
         assert self.in_progress[id] >= 0
+
+    def best_unreserved_item(self, max_payload):
+        """ any item """
+        return max(self.unreserved_items().items(), key=lambda x: x[1])
