@@ -2,8 +2,11 @@ from scipy.spatial import distance
 import math
 
 
+cache = {}
 def dist_ceil(pos1, pos2):
     """ computes the distance between everything """
+    if (pos1, pos2) is cache:
+        return cache[(pos1, pos2)]
     poss = [pos1, pos2]
     for i, pos in enumerate(poss):
         # if "pos" in pos:
@@ -12,4 +15,5 @@ def dist_ceil(pos1, pos2):
             poss[i] = pos.pos
     d = distance.euclidean(*poss)
     d = math.ceil(d)
+    cache[(pos1, pos2)] = d
     return d
