@@ -3,6 +3,7 @@
 
 from drone import Drone
 from state import State
+from order import Order
 
 
 def parse(inFileName):
@@ -36,7 +37,7 @@ def parse(inFileName):
             pos = list(map(int, pos.split(" ")))
             items = list(map(int, items.strip().split(" ")))
             assert int(nr_items) == len(items)
-            orders.append({"id": i, "pos": pos, "items": items})
+            orders.append(Order(id=i, pos=pos, items=items))
 
         assert len(orders) == nr_orders
 

@@ -4,7 +4,6 @@
 import sys
 from parser import parse
 from serializer import serialize
-from distance import dist
 
 if len(sys.argv) < 2:
     sys.exit("did you forget sth.?")
@@ -16,7 +15,6 @@ outFileName = sys.argv[2]
 state = parse(inFileName)
 
 # compute distances between orders and warehourses (available as "distances")
-dist(state)
 
 print(state.warehouses[0])
 print(state.orders[0])
