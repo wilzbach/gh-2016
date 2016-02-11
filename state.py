@@ -19,9 +19,15 @@ class State:
         return next_drone
 
     def closest_warehouse(self, drone, offer):
-        potential_warehouses = [w for w in self.warehouses if w.has_product(offer["product"], offer["count"])]
-        assert len(potential_warehouses) > 0
-        return min(potential_warehouses, key=lambda w: dist_ceil(w.pos, drone.pos))
+        potential_warehouse = None
+        current_dist = None
+        for w in self.warehouses:
+            if w.has_product(offer["product"], offer["count"]):
+                    if potential_warehouse is None or dist_ceil(w.pos, drone.pos) < current_dist:
+                        potential_warehouse = w
+                        current_dist = dist_ceil(w.pos, drone.pos)
+
+        assert potential_warehouse is not None
 
     def next_offer(self):
         """ looks at all drones and gives the nearest offer """
