@@ -15,6 +15,7 @@ outFileName = sys.argv[2]
 
 g = parse(inFileName)
 
+# compute distances between orders and warehourses (available as "distances")
 dist(g)
 
 print(g["warehouses"][0])

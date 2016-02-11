@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+from drone import Drone
+
 
 def parse(inFileName):
 
     with open(inFileName, "r") as inFile:
 
         header = inFile.readline()
-        rows, columns, nr_drones, nr_turns, max_paylod = list(map(int, header.strip().split(" ")))
+        rows, columns, nr_drones, nr_turns, max_payload = list(map(int, header.strip().split(" ")))
 
         # read product types
         nr_products = int(inFile.readline())
@@ -37,13 +39,19 @@ def parse(inFileName):
 
         assert len(orders) == nr_orders
 
+        drones = []
+        first_warehouse = warehouses[0]
+        for i in range(nr_drones):
+            drone = Drone(pos=first_warehouse["pos"], id=i, products=products, max_payload=max_payload)
+            drones.append(drone)
+
         return {
             "rows": rows,
             "columns": columns,
-            "nr_drones": nr_drones,
             "nr_turns": nr_turns,
-            "max_paylod": max_paylod,
+            "max_payload": max_payload,
             "products": products,
             "warehouses": warehouses,
-            "orders": orders
+            "orders": orders,
+            "drones": drones
         }
