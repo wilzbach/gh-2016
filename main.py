@@ -12,10 +12,6 @@ if len(sys.argv) < 2:
 inFileName = sys.argv[1]
 outFileName = sys.argv[2]
 
-
 state = parse(inFileName)
-
-print(state.warehouses[0])
-print(state.orders[0])
 commands = schedule(state)
 serialize(outFileName, commands)
