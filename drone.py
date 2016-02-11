@@ -13,10 +13,10 @@ class Drone:
         self.in_progress = None
 
     def busy(self, turn):
-        return self.in_progress is not None or turn > self.busy_time
+        return self.in_progress is not None or turn <= self.busy_time
 
-    def has_new_instructions(self):
-        return not self.in_progress
+    def has_new_instructions(self, turn):
+        return self.in_progress is not None and turn > self.busy_time
 
     def process(self, turn, offer):
         self.in_progress = offer       
