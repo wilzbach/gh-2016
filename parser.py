@@ -3,6 +3,7 @@
 
 from drone import Drone
 from state import State
+from warehouse import Warehouse
 
 
 def parse(inFileName):
@@ -24,7 +25,7 @@ def parse(inFileName):
             pos = list(map(int, inFile.readline().strip().split(" ")))
             product_types = list(map(int, inFile.readline().strip().split(" ")))
             assert len(product_types) == nr_products
-            warehouses.append({"id": i, "pos": pos, "items": product_types})
+            warehouses.append(Warehouse(id=i, pos=pos, items=product_types))
 
         assert len(warehouses) == nr_warehouses
 

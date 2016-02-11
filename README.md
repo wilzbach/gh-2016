@@ -6,7 +6,7 @@ state format:
 	"nr_turns": nr_turns,
 	"max_paylod": max_paylod,
 	"products": products,
-	"warehouses": warehouses,
+	"warehouses": [{"id": id, "pos": (x, y), "items": [count]}],
 	"orders": orders
 }"
 offer:
