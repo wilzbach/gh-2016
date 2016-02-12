@@ -11,6 +11,9 @@ def schedule(state):
             elif not drone.busy(turn):
                 # select product to deliver
                 offer = state.next_offer()
+                if offer is None:
+                    # yeah we are done
+                    return commands
                 offer["warehouse"] = state.closest_warehouse(drone, offer)
                 command = drone.process(turn, offer)
                 commands.append(command)

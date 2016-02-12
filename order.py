@@ -23,7 +23,7 @@ class Order:
         return sum(self.items.values()) != sum(self.in_progress.values())
 
     def unreserved_items(self):
-        return {key: self.items[key] - self.in_progress[key] for key in self.items.keys()}
+        return {key: self.items[key] - self.in_progress[key] for key in self.items.keys() if self.items[key] - self.in_progress[key] != 0}
 
     def process(self, id, count=1):
         self.in_progress[id] += count

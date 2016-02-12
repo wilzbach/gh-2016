@@ -27,6 +27,8 @@ class Drone:
         count = offer["count"]
         warehouse = offer["warehouse"]
 
+        assert count > 0
+
         cmd = load(self.id, warehouse.id, product, count)
 
         duration = dist_ceil(self.pos, warehouse.pos) + 1

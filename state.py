@@ -27,6 +27,7 @@ class State:
                         potential_warehouse = w
                         current_dist = dist_ceil(w.pos, drone.pos)
 
+        assert potential_warehouse.has_product(offer["product"], offer["count"])
         assert potential_warehouse is not None
         return potential_warehouse
 
@@ -41,7 +42,9 @@ class State:
                     next_order = order
                     current_dist = dist_ceil(next_drone.pos, order.pos)
 
-        item, count = order.best_unreserved_item(self.max_payload)
+        if next_order is None:
+            return None
+        item, count = next_order.best_unreserved_item(self.max_payload)
         count = min(int(self.max_payload / self.products[item]), count)
-        offer = {"product": item, "order": order, "count": count}
+        offer = {"product": item, "order": next_order, "count": count}
         return offer
